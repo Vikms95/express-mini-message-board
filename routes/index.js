@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 const messages =  [
   {
     text: "Hi there!",
@@ -13,10 +14,17 @@ const messages =  [
     added: new Date()
   }
 ]
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Mini Messageboard', messages: messages });
 });
 
-module.exports = router;
+router.get('/', function(req, res, next) {
+  res.render('new')
+});
+
+router.post('/', function(req, res, next){
+  messages.push({text: req.body.text, author: req.body.author, added: new Date()})
+})
+
+module.exports = {router, messages};
